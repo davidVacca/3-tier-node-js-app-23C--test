@@ -9,3 +9,4 @@ web <=> api <=> db
 ```
 
 The folders `web` and `api` describe how to install and run each app.
+Compose file is for local development by Software Engineers. Not used as part of the CI/CD pipelines.

@@ -20,7 +20,7 @@ node 16 or higher
 
 ## NOTE this app uses two env variables
 
-- PORT: the listening PORT
-- API_HOST: the full url to call the API app
+- PORT: optional variable to specify the listening PORT. Default is 3000
+- API_HOST: the full url to call the API app (syntax: `http://BACKEND_HOSTNAME:BACKEND_PORT`)
 
 These two variables need to be set
