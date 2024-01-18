@@ -4,12 +4,25 @@ on:
   push:
     branches:
       - feature/**
-
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+env:
+  AWS_REGION: "us-east-1:"
 jobs:
   Docker-build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Branch
+      # equivalent of "git clone repo"
+      - name: Checkout branch
         uses: actions/checkout@v3
-      - name: Build Docker image
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.IAM_ROLE }}
+          role-session-name: GitHubActionsRoleSession
+          aws-region: ${{ env.AWS_REGION }}
+      - name: build docker image
         run: docker build . --tag api:0.1
+        working-directory: ./api
