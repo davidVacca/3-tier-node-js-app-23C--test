@@ -1,0 +1,15 @@
+name: 3-tier-node-js-app
+
+on:
+  push:
+    branches:
+      - feature/**
+
+jobs:
+  Docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v3
+      - name: Build Docker image
+        run: docker build . --tag api:0.1
