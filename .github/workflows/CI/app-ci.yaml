@@ -1,4 +1,4 @@
-name: 3-tier-node-js-app
+name: 3-tiers-node-js-app
 
 on:
   push:
