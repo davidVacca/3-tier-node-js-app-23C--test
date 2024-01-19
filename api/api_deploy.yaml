@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api_backend
+  namespace: sample-app
+  labels:
+    app: api_backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: api_backend
+  template:
+    metadata:
+      labels:
+        app: api_backend
+    spec:
+      containers:
+        - name: api_backend
+          image: "838353990482.dkr.ecr.us-east-1.amazonaws.com/api:0.1"
+          ports:
+            - containerPort: 80
