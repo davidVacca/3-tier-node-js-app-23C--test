@@ -17,6 +17,6 @@ spec:
     spec:
       containers:
         - name: api_backend
-          image: "838353990482.dkr.ecr.us-east-1.amazonaws.com/api:0.1"
+          image: "838353990482.dkr.ecr.us-east-1.amazonaws.com/api:0.2"
           ports:
             - containerPort: 80
