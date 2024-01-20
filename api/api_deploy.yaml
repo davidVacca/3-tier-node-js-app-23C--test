@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api_backend
-  namespace: sample-app
   labels:
     app: api_backend
 spec:
