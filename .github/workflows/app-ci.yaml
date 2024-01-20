@@ -35,7 +35,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: api
-          IMAGE_TAG: "0.5"
+          IMAGE_TAG: ${{ github.sha }}
         working-directory: ./api
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
@@ -45,21 +45,15 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: web
-          IMAGE_TAG: "0.5"
+          IMAGE_TAG: ${{ github.sha }}
         working-directory: ./web
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
+        # deploy with kubernetes
       - name: Deploy in kubernetes
-        env:
-          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          REPOSITORY: api
-          IMAGE_TAG: "0.5"
         working-directory: ./api
         run: |
-          ## need to logged into the right IAM role or user
-          aws eks update-kubeconfig --name project-x-eks-david --region $AWS_REGION 
-          aws eks list-clusters
-          kubectl get nodes
-          kubectl apply -f api_deploy.yaml
+          helm upgrade --install api-app-backend ./app-helm-chart \
+          --values ./app-helm-chart/values/backend/api-values.yaml \
