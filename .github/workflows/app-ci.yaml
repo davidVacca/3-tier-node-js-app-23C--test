@@ -1,0 +1,65 @@
+name: 3-tiers-node-js-app
+
+on:
+  push:
+    branches:
+      - feature/**
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read # This is required for actions/checkout
+env:
+  AWS_REGION: "us-east-1"
+jobs:
+  Docker-build:
+    runs-on: ubuntu-latest
+    steps:
+      # Check out code
+      - name: Checkout branch
+        uses: actions/checkout@v3
+
+      # login to AWS
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.IAM_ROLE }}
+          role-session-name: GitHubActionsRoleSession
+          aws-region: ${{ env.AWS_REGION }}
+
+      # Loging to ECR of the current account
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v2
+
+      # build and push into ECR
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: api
+          IMAGE_TAG: "0.5"
+        working-directory: ./api
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+      - name: Build, tag, and push docker image to Amazon ECR
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: web
+          IMAGE_TAG: "0.5"
+        working-directory: ./web
+        run: |
+          docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
+          docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
+
+      - name: Deploy in kubernetes
+        env:
+          REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          REPOSITORY: api
+          IMAGE_TAG: "0.5"
+        working-directory: ./api
+        run: |
+          ## need to logged into the right IAM role or user
+          aws eks update-kubeconfig --name project-x-eks-david --region $AWS_REGION 
+          aws eks list-clusters
+          kubectl get nodes
+          kubectl apply -f api_deploy.yaml
