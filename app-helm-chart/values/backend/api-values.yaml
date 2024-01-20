@@ -6,3 +6,4 @@ image:
 port: 300
 serviceProtocol: TCP
 servicePort: 3000
+hostname: api-backend.davidvacca.click

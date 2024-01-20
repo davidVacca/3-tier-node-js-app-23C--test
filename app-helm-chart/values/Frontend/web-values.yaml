@@ -6,3 +6,4 @@ image:
 port: 80
 serviceProtocol: TCP
 servicePort: 80
+hostname: app-fronend.davidvacca.click
