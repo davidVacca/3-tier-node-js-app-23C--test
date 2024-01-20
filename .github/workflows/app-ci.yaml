@@ -35,7 +35,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: api
-          IMAGE_TAG: "0.2"
+          IMAGE_TAG: "0.3"
         working-directory: ./api
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
@@ -45,7 +45,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: web
-          IMAGE_TAG: "0.2"
+          IMAGE_TAG: "0.3"
         working-directory: ./web
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
@@ -55,7 +55,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: api
-          IMAGE_TAG: "0.2"
+          IMAGE_TAG: "0.3"
         working-directory: ./api
         run: |
           ## need to logged into the right IAM role or user
