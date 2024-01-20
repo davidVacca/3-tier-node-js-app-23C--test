@@ -56,6 +56,16 @@ jobs:
 
         # deploy with kubernetes
       - name: Deploy in kubernetes
+        env:
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           helm upgrade --install api-app-backend ./app-helm-chart \
           --values ./app-helm-chart/values/backend/api-values.yaml \
+
+        # deploy with kubernetes
+      - name: Deploy in kubernetes
+        env:
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          helm upgrade --install api-app-frontend./app-helm-chart \
+          --values ./app-helm-chart/values/frontend/api-values.yaml \
