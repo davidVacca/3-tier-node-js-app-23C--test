@@ -4,5 +4,5 @@ replicaCount: 2
 image:
   repo: "838353990482.dkr.ecr.us-east-1.amazonaws.com/web"
 port: 80
-serviceProtocol: TPC
+serviceProtocol: TCP
 servicePort: 80
