@@ -63,4 +63,4 @@ jobs:
           # LOGIN TO rhe right EKS cluster
           aws eks update-kubeconfig --name project-x-eks-david --region $AWS_REGION 
           kubectl get nodes
-          kubectl apply -f
+          kubectl apply -f api_deploy.yaml
