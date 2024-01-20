@@ -58,7 +58,7 @@ jobs:
           IMAGE_TAG: "0.2"
         working-directory: ./api
         run: |
-          # need to logged into the right IAM role or user
+          ## need to logged into the right IAM role or user
           aws eks list-clusters
           # LOGIN TO rhe right EKS cluster
           aws eks --region us-east-1 update-kubeconfig --name project-x-eks-david 
