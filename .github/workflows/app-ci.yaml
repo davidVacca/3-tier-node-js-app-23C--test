@@ -69,7 +69,7 @@ jobs:
         env:
           IMAGE_TAG: ${{ github.sha }}
         run: |
-          helm upgrade --install api-app-frontend./app-helm-chart \
-          --values ./app-helm-chart/values/frontend/api-values.yaml \
+          helm upgrade --install api-app-backend ./app-helm-chart \
+          --values ./app-helm-chart/values/backend/web-values.yaml \
           --namespace sample-app --create-namespace \
-          --set image.tag="IMAGE_TAG"
+          --set image.tag="$IMAGE_TAG"
