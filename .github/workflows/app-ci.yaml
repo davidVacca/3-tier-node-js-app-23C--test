@@ -51,6 +51,9 @@ jobs:
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
           docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
+      - name: Login to EKS - update kubeconfig
+        run: aws eks update-kubeconfig --name project-x-eks-${ENVIRONMENT_STAGE} --region $AWS_REGION
+
         # deploy with kubernetes
       - name: Deploy in kubernetes
         working-directory: ./api
