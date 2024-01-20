@@ -1,4 +1,4 @@
-appName: api-Frontend
+appName: api-frontend
 namespace: sample-app
 replicaCount: 2
 image:
