@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }} 
   labels:
     app: {{ .Values.appName }}
 spec:
@@ -19,3 +20,18 @@ spec:
           image:  "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
           ports:
             - containerPort:  {{ .Values.port }}
+
+---            
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.appName }}-svc"
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - protocol: {{ .Values.serviceProtocol }}
+      port: {{ .Values.servicePort}}
+      targetPort: {{ .Values.port }}
+

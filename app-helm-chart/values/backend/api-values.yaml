@@ -1,5 +1,8 @@
 appName: api-backend
+namespace: sample-app
 replicaCount: 2
 image:
   repo: "838353990482.dkr.ecr.us-east-1.amazonaws.com/api"
-port: 80
+port: 300
+serviceProtocol: TPC
+servicePort: 3000
