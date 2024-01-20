@@ -35,7 +35,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: api
-          IMAGE_TAG: "0.3"
+          IMAGE_TAG: "0.2"
         working-directory: ./api
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
@@ -45,7 +45,7 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: web
-          IMAGE_TAG: "0.3"
+          IMAGE_TAG: "0.2"
         working-directory: ./web
         run: |
           docker build -t $REGISTRY/$REPOSITORY:$IMAGE_TAG .
@@ -55,12 +55,12 @@ jobs:
         env:
           REGISTRY: ${{ steps.login-ecr.outputs.registry }}
           REPOSITORY: api
-          IMAGE_TAG: "0.3"
+          IMAGE_TAG: "0.2"
         working-directory: ./api
         run: |
           ## need to logged into the right IAM role or user
           aws eks list-clusters
           # LOGIN TO rhe right EKS cluster
-          aws eks --region us-east-1 update-kubeconfig --name project-x-eks-david 
+          aws eks update-kubeconfig --name project-x-eks-david --region $AWS_REGION 
           kubectl get nodes
           kubectl apply -f
