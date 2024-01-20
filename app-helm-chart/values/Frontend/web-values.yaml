@@ -7,3 +7,5 @@ port: 80
 serviceProtocol: TCP
 servicePort: 80
 hostname: app-frontend.davidvacca.click
+ingress:
+  enabled: true
