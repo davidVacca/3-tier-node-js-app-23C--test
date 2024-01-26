@@ -3,7 +3,7 @@ namespace: sample-app
 replicaCount: 2
 image:
   repo: "838353990482.dkr.ecr.us-east-1.amazonaws.com/api"
-port: 300
+port: 3000
 serviceProtocol: TCP
 servicePort: 3000
 hostname: api-backend.davidvacca.click
