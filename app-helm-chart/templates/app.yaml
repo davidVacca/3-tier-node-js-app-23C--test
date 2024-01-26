@@ -22,7 +22,8 @@ spec:
             - containerPort:  {{ .Values.port }}
           env:
             - name: API_HOST
-              value: "{{ .Values.backend.serviceName }}.{{ .Release.namespace }}.svc.cluster.local"  
+              value: "api-backend-svc.sample-app.svc.cluster.local"
+
 
 ---            
 

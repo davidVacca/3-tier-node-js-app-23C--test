@@ -9,4 +9,3 @@ servicePort: 80
 hostname: app-frontend.davidvacca.click
 ingress:
   enabled: true
-serviceName: api-backend-svc
