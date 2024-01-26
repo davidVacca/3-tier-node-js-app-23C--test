@@ -16,15 +16,15 @@ spec:
         app: {{ .Values.appName }}
     spec:
       containers:
-        - name: {{ .Values.appName }}
-          image:  "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
-          ports:
-            - containerPort:  {{ .Values.port }}
-            env:
-            {{- range $key, $value := .Values.envs }}
-            - name: "{{ $key }}"
-              value: "{{ $value }}"
-            {{- end }} 
+      - name: {{ .Values.appName }}
+        image:  "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort:  {{ .Values.port }}
+        env:
+        {{- range $key, $value := .Values.envs }}
+        - name: "{{ $key }}"
+          value: "{{ $value }}"
+        {{- end }} 
 ---            
 apiVersion: v1
 kind: Service

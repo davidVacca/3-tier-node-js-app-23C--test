@@ -1,6 +1,6 @@
 appName: api-frontend
 namespace: sample-app
-replicaCount: 2
+replicaCount: 1
 image:
   repo: "838353990482.dkr.ecr.us-east-1.amazonaws.com/web"
 port: 80
