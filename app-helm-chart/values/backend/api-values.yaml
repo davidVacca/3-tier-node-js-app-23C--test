@@ -5,7 +5,7 @@ image:
   repo: "838353990482.dkr.ecr.us-east-1.amazonaws.com/api"
 port: 3000
 serviceProtocol: TCP
-servicePort: 3000
+servicePort: 80
 hostname: api-backend.davidvacca.click
 ingress:
   enabled: false
