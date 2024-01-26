@@ -20,6 +20,9 @@ spec:
           image:  "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
           ports:
             - containerPort:  {{ .Values.port }}
+          env:
+            - name: API_HOST
+              value: "{{ .Values.backend.serviceName }}.{{ .Release.namespace }}.svc.cluster.local"  
 
 ---            
 
