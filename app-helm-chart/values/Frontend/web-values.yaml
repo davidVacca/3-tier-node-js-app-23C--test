@@ -9,7 +9,6 @@ servicePort: 80
 hostname: app-frontend.davidvacca.click
 ingress:
   enabled: true
-appConfig:
-  envVars:
-    - name: API_HOST
-      value: "http://api-backend-svc.sample-app.svc.cluster.local:80"
+envs:
+  - name: API_HOST
+    value: "http://api-backend-svc.sample-app.svc.cluster.local:80"

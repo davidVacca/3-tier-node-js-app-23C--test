@@ -21,10 +21,10 @@ spec:
           ports:
             - containerPort:  {{ .Values.port }}
             env:
-              {{- range .Values.appConfig.envVars }}
-              - name: {{ .name }}
-                value: {{ .value | quote }}
-              {{- end }}
+            {{- range $key, $value := .Values.envs }}
+            - name: "{{ $key }}"
+              value: "{{ $value }}"
+            {{- end }} 
 ---            
 apiVersion: v1
 kind: Service
