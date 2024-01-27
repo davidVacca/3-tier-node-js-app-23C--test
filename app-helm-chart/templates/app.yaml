@@ -21,9 +21,22 @@ spec:
         ports:
         - containerPort: {{ .Values.port }}
         env:
+        
+          {{- if eq .Values.appType "frontend" }}
           {{- range $key, $value := .Values.envs }}
           - name: "{{ $key }}"
             value: "{{ $value }}"
+          {{- end }}
+          {{- end }}
+
+          {{- if eq .Values.appType "backend" }}
+          {{- range .Values.envFromSecret.variables }}
+          - name: {{ .name }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $.Values.envFromSecret.secretName }}
+                key: {{ .key }}
+          {{- end }}
           {{- end }}
 ---            
 apiVersion: v1

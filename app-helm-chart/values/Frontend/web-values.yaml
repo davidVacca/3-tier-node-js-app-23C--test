@@ -1,5 +1,6 @@
 appName: api-frontend
 namespace: sample-app
+appType: frontend
 replicaCount: 1
 image:
   repo: "838353990482.dkr.ecr.us-east-1.amazonaws.com/web"
@@ -10,4 +11,4 @@ hostname: app-frontend.davidvacca.click
 ingress:
   enabled: true
 envs:
-  API_HOST: "http://api-backend-svc.sample-app.svc.cluster.local"
+  API_HOST: "http://api-backend-svc.sample-app.svc.cluster.local:80"
