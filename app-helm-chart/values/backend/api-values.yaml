@@ -9,5 +9,3 @@ servicePort: 80
 hostname: api-backend.davidvacca.click
 ingress:
   enabled: false
-envs:
-  API_HOST: "http://api-backend-svc.sample-app.svc.cluster.local"
