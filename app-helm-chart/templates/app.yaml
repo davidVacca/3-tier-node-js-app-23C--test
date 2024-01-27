@@ -25,7 +25,6 @@ spec:
           - name: "{{ $key }}"
             value: "{{ $value }}"
           {{- end }}
-          {{- end }}
 ---            
 apiVersion: v1
 kind: Service
