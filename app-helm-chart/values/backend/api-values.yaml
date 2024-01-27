@@ -10,4 +10,4 @@ hostname: api-backend.davidvacca.click
 ingress:
   enabled: false
 envs:
-  DB: "postgres://dbuser:K$t3Pw(-F:(M7LJw%j.6dI!|VPna@reviews-app-db.ccvu9diy2nk2.us-east-1.rds.amazonaws.com/db_sg"
+  DB: "postgresql://dbuser:K$t3Pw(-F:(M7LJw%j.6dI!|VPna@review-app-db.ccvu9diy2nk2.us-east-1.rds.amazonaws.com/db_sg"
