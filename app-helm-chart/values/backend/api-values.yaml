@@ -23,3 +23,4 @@ envFromSecret:
       key: DB_ENDPOINT
     - name: DB_NAME
       key: DB_NAME
+# kubectl create secret generic db-secret --from-literal=DB_USERNAME=dbuser --from-literal=DB_PASSWORD="K$t3Pw(-F:(M7LJw%j.6dI!|VPna" --from-literal=DB_ENDPOINT=reviews-app-db.ccvu9diy2nk2.us-east-1.rds.amazonaws.com --from-literal=DB_NAME=dbuser
