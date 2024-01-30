@@ -62,7 +62,7 @@ jobs:
           helm upgrade --install api-app-backend ./app-helm-chart \
           --values ./app-helm-chart/values/backend/api-values.yaml \
           --namespace sample-app --create-namespace \
-          --set image.tag="IMAGE_TAG"
+          --set image.tag="$IMAGE_TAG"
 
         # deploy with kubernetes
       - name: Deploy in kubernetes
@@ -70,6 +70,6 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           helm upgrade --install api-app-frontend ./app-helm-chart \
-          --values ./app-helm-chart/values/frontend/web-values.yaml \
+          --values ./app-helm-chart/values/Frontend/web-values.yaml \
           --namespace sample-app --create-namespace \
-          --set image.tag="IMAGE_TAG"
+          --set image.tag="$IMAGE_TAG"

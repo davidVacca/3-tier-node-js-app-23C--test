@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appName }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.appName }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.appName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appName }}
+    spec:
+      containers:
+      - name: {{ .Values.appName }}
+        image: "{{ .Values.image.repo }}:{{ .Values.image.tag }}"
+        ports:
+        - containerPort: {{ .Values.port }}
+        env:
+        
+          {{- if eq .Values.appType "frontend" }}
+          {{- range $key, $value := .Values.envs }}
+          - name: "{{ $key }}"
+            value: "{{ $value }}"
+          {{- end }}
+          {{- end }}
+
+          {{- if eq .Values.appType "backend" }}
+          {{- range .Values.envFromSecret.variables }}
+          - name: {{ .name }}
+            valueFrom:
+              secretKeyRef:
+                name: {{ $.Values.envFromSecret.secretName }}
+                key: {{ .key }}
+          {{- end }}
+          {{- end }}
+---            
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.appName }}-svc"
+spec:
+  selector:
+    app: {{ .Values.appName }}
+  ports:
+    - protocol: {{ .Values.serviceProtocol }}
+      port: {{ .Values.servicePort}}
+      targetPort: {{ .Values.port }}
+
+---
+# Ingress => Service (ClusterIP) => Pods
+# if requested hostname is abcexample.com => route to Service A
+# if requested hostname is xyzexample.com => route to Service
+{{- if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "{{ .Values.appName }}-ingress"
+  namespace: {{ .Values.appNamespace }}
+spec:
+  rules:
+  - host: {{ .Values.hostname }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: "{{ .Values.appName }}-svc"
+            port:
+              number: {{ .Values.servicePort }}
+  ingressClassName: nginx
+{{- end}}  

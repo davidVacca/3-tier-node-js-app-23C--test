@@ -1,8 +1,14 @@
-appName: api-Frontend
+appName: api-frontend
 namespace: sample-app
-replicaCount: 2
+appType: frontend
+replicaCount: 1
 image:
   repo: "838353990482.dkr.ecr.us-east-1.amazonaws.com/web"
 port: 80
 serviceProtocol: TCP
 servicePort: 80
+hostname: app-frontend.davidvacca.click
+ingress:
+  enabled: true
+envs:
+  API_HOST: "http://api-backend-svc.sample-app.svc.cluster.local:80"

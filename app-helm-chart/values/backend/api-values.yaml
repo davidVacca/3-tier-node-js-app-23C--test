@@ -1,8 +1,26 @@
 appName: api-backend
 namespace: sample-app
-replicaCount: 2
+appType: backend
+replicaCount: 1
 image:
   repo: "838353990482.dkr.ecr.us-east-1.amazonaws.com/api"
-port: 300
+port: 3000
 serviceProtocol: TCP
-servicePort: 3000
+servicePort: 80
+hostname: api-backend.davidvacca.click
+ingress:
+  enabled: false
+# envs:
+#   DB: "postgresql://dbuser:K$t3Pw(-F:(M7LJw%j.6dI!|VPna@review-app-db.ccvu9diy2nk2.us-east-1.rds.amazonaws.com/db_sg"
+envFromSecret:
+  secretName: db-secret
+  variables:
+    - name: DB_USERNAME
+      key: DB_USERNAME
+    - name: DB_PASSWORD
+      key: DB_PASSWORD
+    - name: DB_ENDPOINT
+      key: DB_ENDPOINT
+    - name: DB_NAME
+      key: DB_NAME
+# kubectl create secret generic db-secret --from-literal=DB_USERNAME=dbuser --from-literal=DB_PASSWORD="K$t3Pw(-F:(M7LJw%j.6dI!|VPna" --from-literal=DB_ENDPOINT=reviews-app-db.ccvu9diy2nk2.us-east-1.rds.amazonaws.com --from-literal=DB_NAME=dbuser
